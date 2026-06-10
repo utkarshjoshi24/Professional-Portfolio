@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>NEON_STUDIO | Alex Chen - 3D Architect</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=Space+Mono:wght@400;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=Sora:wght@100..900&amp;family=Space+Mono:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "background": "#131313",
+                        "secondary": "#d2bbff",
+                        "surface-dim": "#131313",
+                        "error-container": "#93000a",
+                        "primary-container": "#00d9ff",
+                        "surface-variant": "#353534",
+                        "on-surface": "#e5e2e1",
+                        "surface-bright": "#3a3939",
+                        "on-surface-variant": "#bbc9ce",
+                        "inverse-surface": "#e5e2e1",
+                        "surface-container-highest": "#353534",
+                        "surface-container": "#201f1f",
+                        "on-tertiary": "#422d00",
+                        "on-secondary": "#3f008e",
+                        "tertiary-fixed-dim": "#febb29",
+                        "primary-fixed-dim": "#00d9ff",
+                        "secondary-container": "#6001d1",
+                        "on-tertiary-container": "#6e4d00",
+                        "on-tertiary-fixed": "#271900",
+                        "surface-tint": "#00d9ff",
+                        "surface-container-high": "#2a2a2a",
+                        "on-background": "#e5e2e1",
+                        "on-primary-fixed-variant": "#004e5d",
+                        "on-tertiary-fixed-variant": "#5e4100",
+                        "on-secondary-container": "#c9aeff",
+                        "outline": "#859398",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary-fixed": "#25005a",
+                        "surface-container-lowest": "#0e0e0e",
+                        "inverse-on-surface": "#313030",
+                        "surface": "#131313",
+                        "on-secondary-fixed-variant": "#5a00c6",
+                        "tertiary": "#ffdeaa",
+                        "secondary-fixed": "#eaddff",
+                        "surface-container-low": "#1c1b1b",
+                        "tertiary-fixed": "#ffdea9",
+                        "on-error": "#690005",
+                        "secondary-fixed-dim": "#d2bbff",
+                        "error": "#ffb4ab",
+                        "outline-variant": "#3c494d",
+                        "on-primary-container": "#005b6c",
+                        "primary-fixed": "#aeecff",
+                        "inverse-primary": "#00687b",
+                        "on-primary": "#003641",
+                        "tertiary-container": "#ffbb2a",
+                        "primary": "#afecff",
+                        "on-primary-fixed": "#001f26"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "stack-lg": "64px",
+                        "margin-desktop": "80px",
+                        "margin-mobile": "20px",
+                        "stack-sm": "12px",
+                        "stack-md": "32px",
+                        "unit": "8px",
+                        "container-max": "1440px"
+                    },
+                    "fontFamily": {
+                        "display-lg-mobile": ["Sora"],
+                        "label-caps": ["Space Mono"],
+                        "body-lg": ["Inter"],
+                        "display-lg": ["Sora"],
+                        "headline-md": ["Sora"],
+                        "headline-lg": ["Sora"],
+                        "body-md": ["Inter"],
+                        "mono-data": ["Space Mono"]
+                    },
+                    "fontSize": {
+                        "display-lg-mobile": ["40px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "display-lg": ["72px", {"lineHeight": "80px", "letterSpacing": "-0.04em", "fontWeight": "800"}],
+                        "headline-md": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                        "headline-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "mono-data": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #050505;
+            color: #e5e2e1;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+        .glass-card:hover {
+            border-color: rgba(0, 217, 255, 0.5);
+            box-shadow: 0 0 20px rgba(0, 217, 255, 0.2);
+        }
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal-on-scroll.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .glow-text {
+            text-shadow: 0 0 15px rgba(0, 217, 255, 0.5);
+        }
+        .timeline-line {
+            background: linear-gradient(180deg, #00d9ff 0%, #7c3aed 100%);
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="font-body-md">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 left-0 w-full z-50 bg-white/10 backdrop-blur-xl border-b border-white/20 shadow-[0_0_20px_rgba(0,217,255,0.1)] flex justify-between items-center px-margin-desktop py-gutter">
+<div class="font-display-lg text-display-lg-mobile tracking-tighter text-primary-container">NEON_STUDIO</div>
+<nav class="hidden md:flex gap-stack-md">
+<a class="text-on-surface-variant font-medium hover:scale-105 hover:text-primary-container transition-all duration-300" href="#experience">Experience</a>
+<a class="text-on-surface-variant font-medium hover:scale-105 hover:text-primary-container transition-all duration-300" href="#portfolio">Gallery</a>
+<a class="text-on-surface-variant font-medium hover:scale-105 hover:text-primary-container transition-all duration-300" href="#skills">Skills</a>
+<a class="text-on-surface-variant font-medium hover:scale-105 hover:text-primary-container transition-all duration-300" href="#tools">Tools</a>
+</nav>
+<button class="bg-primary-container text-on-primary-container px-6 py-2 rounded-full font-bold hover:scale-105 active:scale-95 transition-all">Connect</button>
+</header>
+<!-- Side Navigation -->
+<aside class="fixed left-0 top-0 h-full w-20 hover:w-64 transition-all duration-500 z-[60] bg-surface-container-lowest/80 backdrop-blur-2xl border-r border-white/10 shadow-2xl flex flex-col h-full py-stack-md overflow-hidden group">
+<div class="px-6 mb-12 opacity-0 group-hover:opacity-100 transition-opacity">
+<h2 class="text-primary font-display-lg text-headline-md">3D Architect</h2>
+<p class="text-on-surface-variant/60 font-label-caps text-label-caps">VFX &amp; Motion Design</p>
+</div>
+<div class="flex flex-col gap-4 px-4">
+<a class="flex items-center gap-4 p-3 rounded-xl bg-primary-container/20 text-primary-container border-l-4 border-primary-container transition-all ease-in-out" href="#">
+<span class="material-symbols-outlined">grid_view</span>
+<span class="font-label-caps text-label-caps opacity-0 group-hover:opacity-100 transition-opacity">Home</span>
+</a>
+<a class="flex items-center gap-4 p-3 rounded-xl text-on-surface-variant/60 hover:bg-white/5 transition-all ease-in-out" href="#portfolio">
+<span class="material-symbols-outlined">video_library</span>
+<span class="font-label-caps text-label-caps opacity-0 group-hover:opacity-100 transition-opacity">Projects</span>
+</a>
+<a class="flex items-center gap-4 p-3 rounded-xl text-on-surface-variant/60 hover:bg-white/5 transition-all ease-in-out" href="#timeline">
+<span class="material-symbols-outlined">linear_scale</span>
+<span class="font-label-caps text-label-caps opacity-0 group-hover:opacity-100 transition-opacity">Timeline</span>
+</a>
+<a class="flex items-center gap-4 p-3 rounded-xl text-on-surface-variant/60 hover:bg-white/5 transition-all ease-in-out" href="#stats">
+<span class="material-symbols-outlined">monitoring</span>
+<span class="font-label-caps text-label-caps opacity-0 group-hover:opacity-100 transition-opacity">Stats</span>
+</a>
+<a class="flex items-center gap-4 p-3 rounded-xl text-on-surface-variant/60 hover:bg-white/5 transition-all ease-in-out" href="#contact">
+<span class="material-symbols-outlined">alternate_email</span>
+<span class="font-label-caps text-label-caps opacity-0 group-hover:opacity-100 transition-opacity">Contact</span>
+</a>
+</div>
+</aside>
+<!-- Hero Section -->
+<section class="relative h-screen flex items-center justify-center overflow-hidden pt-20">
+<!-- STITCH_SHADER_START:ANIMATION_2 class="absolute inset-0 w-full h-full opacity-40" -->
+<div class="absolute inset-0 w-full h-full opacity-40" style="display:block;">
+<canvas id="shader-canvas-ANIMATION_2" style="display:block;width:100%;height:100%"></canvas>
+<script>
+(function() {
+  const canvas = document.getElementById('shader-canvas-ANIMATION_2');
+
+  // Sync the WebGL drawing-buffer size with the CSS-driven layout size.
+  // This fires on initial layout and whenever the element is resized.
+  function syncSize() {
+    const w = canvas.clientWidth  || 1280;
+    const h = canvas.clientHeight || 720;
+    if (canvas.width !== w || canvas.height !== h) {
+      canvas.width  = w;
+      canvas.height = h;
+    }
+  }
+  if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(syncSize).observe(canvas);
+  }
+  syncSize();
+
+  const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+  if (!gl) return;
+  const vs = `attribute vec2 a_position;
+varying vec2 v_texCoord;
+void main() {
+  v_texCoord = a_position * 0.5 + 0.5;
+  gl_Position = vec4(a_position, 0.0, 1.0);
+}`;
+  const fs = `precision highp float;
+uniform float u_time;
+uniform vec2 u_resolution;
+uniform vec2 u_mouse;
+
+varying vec2 v_texCoord;
+
+float hash(vec2 p) {
+    return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123);
+}
+
+void main() {
+    vec2 uv = v_texCoord;
+    vec2 mouse = u_mouse / u_resolution;
+    
+    // Create dark luxury background
+    vec3 color = vec3(0.02, 0.02, 0.03); // Near black (#050505)
+    
+    // Add glowing grid
+    vec2 grid = fract(uv * 10.0 + u_time * 0.05);
+    float line = smoothstep(0.02, 0.0, abs(grid.x - 0.5)) + smoothstep(0.02, 0.0, abs(grid.y - 0.5));
+    color += line * vec3(0.0, 0.85, 1.0) * 0.05; // Electric Blue glow
+    
+    // Floating particles
+    for(int i = 0; i < 40; i++) {
+        float t = u_time * 0.2 + float(i) * 0.1;
+        vec2 p = vec2(hash(vec2(float(i), 1.0)), hash(vec2(float(i), 2.0)));
+        p.y = fract(p.y - t);
+        
+        float dist = length(uv - p);
+        float size = 0.002 + 0.002 * sin(u_time + float(i));
+        float glow = 0.001 / dist;
+        
+        vec3 pColor = mix(vec3(0.0, 0.85, 1.0), vec3(0.48, 0.22, 0.93), hash(vec2(float(i))));
+        color += pColor * glow * size;
+    }
+    
+    // Vignette
+    float vignette = 1.0 - length(uv - 0.5) * 1.2;
+    color *= vignette;
+    
+    // Interactive mouse glow
+    float mDist = length(uv - mouse);
+    color += vec3(0.48, 0.22, 0.93) * (0.05 / (mDist + 0.5)) * 0.2; // Purple Neon mouse glow
+    
+    gl_FragColor = vec4(color, 1.0);
+}`;
+  function cs(type, src) {
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    return s;
+  }
+  const prog = gl.createProgram();
+  gl.attachShader(prog, cs(gl.VERTEX_SHADER, vs));
+  gl.attachShader(prog, cs(gl.FRAGMENT_SHADER, fs));
+  gl.linkProgram(prog);
+  gl.useProgram(prog);
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+  const pos = gl.getAttribLocation(prog, 'a_position');
+  gl.enableVertexAttribArray(pos);
+  gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+  const uTime = gl.getUniformLocation(prog, 'u_time');
+  const uRes = gl.getUniformLocation(prog, 'u_resolution');
+  const uMouse = gl.getUniformLocation(prog, 'u_mouse');
+
+  // u_mouse is in pixel coordinates matching u_resolution (ShaderToy convention).
+  // Shaders that need normalized coords should use: u_mouse / u_resolution.
+  let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+  window.addEventListener('mousemove', (event) => {
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width && rect.height) {
+      const nx = (event.clientX - rect.left) / rect.width;
+      const ny = 1.0 - (event.clientY - rect.top) / rect.height;
+      mouse.x = nx * canvas.width;
+      mouse.y = ny * canvas.height;
+    }
+  });
+
+  function render(t) {
+    if (typeof ResizeObserver === 'undefined') syncSize();
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    if (uTime) gl.uniform1f(uTime, t * 0.001);
+    if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height);
+    if (uMouse) gl.uniform2f(uMouse, mouse.x, mouse.y);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    requestAnimationFrame(render);
+  }
+  render(0);
+})();
+</script>
+</div>
+<!-- STITCH_SHADER_END:ANIMATION_2 -->
+<div class="relative z-10 text-center px-margin-mobile">
+<div class="mb-8 relative inline-block">
+<div class="w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-primary-container shadow-[0_0_50px_rgba(0,217,255,0.3)] animate-float">
+<img class="w-full h-full object-cover" data-alt="A professional and stylish portrait of Alex Chen, a visionary video editor, wearing sleek tech-wear in a studio setting. The atmosphere is filled with deep blue and purple ambient neon lighting, creating a high-end cyberpunk aesthetic. The background is slightly blurred with bokeh lighting reflecting off glass surfaces, emphasizing a cinematic and masterfully crafted digital environment mood." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIfyZf4OVefBHtjN1ia8Vw_U2WCxfAlFs-W7FLZ0QwqotLcpUoZiumxm2ORTXxWkKy5yuT_yZSBMeRT5pTCGiddx0xzGusEI7ubcuFJwEQfJ28tekY95XMROy5gjW-rIGyMAYt6erbNvLu6bwTRbzmmb0WySdD6EArMeunxuV3DqtJ2qsNS9l5ykqVGgncGWecyQxaU0cHrSNexfgMk1p9DtimUOpBoWXdm_PguQZ-Z5LCTOcDqbCYmYw6wBBCoc9IGmdzU1JbcXE"/>
+</div>
+</div>
+<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg leading-none tracking-tighter mb-4 text-white">
+                Video Editor &amp; <br/> <span class="text-primary-container glow-text">Motion Storyteller</span>
+</h1>
+<p class="font-body-lg text-on-surface-variant max-w-2xl mx-auto mb-10">
+                Transforming ideas into cinematic visual experiences through high-fidelity motion graphics and precision editing.
+            </p>
+<div class="flex flex-col sm:flex-row gap-4 justify-center">
+<a class="bg-primary-container text-on-primary-container px-10 py-4 rounded-full font-bold font-display-lg-mobile text-body-md hover:scale-105 active:scale-95 transition-all shadow-[0_0_20px_rgba(0,217,255,0.4)]" href="#portfolio">View My Work</a>
+<a class="glass-card text-white px-10 py-4 rounded-full font-bold font-display-lg-mobile text-body-md hover:scale-105 active:scale-95 transition-all" href="#contact">Contact Me</a>
+</div>
+</div>
+<div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
+<span class="text-on-surface-variant text-[10px] uppercase tracking-widest">Scroll</span>
+<div class="w-1 h-12 rounded-full bg-white/10 relative overflow-hidden">
+<div class="w-full h-1/2 bg-primary-container absolute top-0 animate-[scroll_2s_infinite_ease-in-out]"></div>
+</div>
+</div>
+</section>
+<!-- About Section -->
+<section class="py-stack-lg px-margin-mobile md:px-margin-desktop bg-surface-container-lowest relative z-10">
+<div class="max-w-container-max mx-auto">
+<div class="glass-card p-stack-md md:p-stack-lg rounded-[2rem] flex flex-col md:flex-row gap-12 items-center reveal-on-scroll">
+<div class="w-full md:w-1/2">
+<h2 class="font-label-caps text-label-caps text-primary uppercase mb-4">The Creative</h2>
+<h3 class="font-headline-lg text-white mb-6">Meet Alex Chen</h3>
+<p class="font-body-lg text-on-surface-variant mb-6 leading-relaxed">
+                        I am a professional video editor specializing in the intersection of high-energy social media content and high-end cinematic visual effects. My approach blends technical precision with deep narrative understanding.
+                    </p>
+<div class="flex gap-4">
+<div class="glass-card p-4 rounded-xl flex-1">
+<span class="material-symbols-outlined text-primary-container mb-2">flare</span>
+<h4 class="font-bold text-white text-sm">VFX Master</h4>
+</div>
+<div class="glass-card p-4 rounded-xl flex-1">
+<span class="material-symbols-outlined text-secondary mb-2">movie_filter</span>
+<h4 class="font-bold text-white text-sm">Colorist</h4>
+</div>
+</div>
+</div>
+<div class="w-full md:w-1/2 aspect-video rounded-2xl overflow-hidden relative border border-white/10">
+<img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" data-alt="A cinematic wide shot of a professional video editing suite featuring high-end hardware, multiple curved 4K monitors displaying complex timeline interfaces with neon waveforms, and ambient RGB lighting in shades of electric blue and violet. The workspace is sleek and futuristic, reflecting a high-performance production environment. The mood is focused, sophisticated, and technologically advanced." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAiGXSnlflPalscNLajBwh_nYFnbbtBzm61ee4cTKfI44i9J1fc4_j9GHE6SJbC-YSP1-U1HiKBm1Wd0FzlzP2jLFKS1k8wF8lkJ1JuY_Kxy-RDsVTqAT0zclFZbL-VyO4n6ISLVoGeqJzK1kYj-GCyJE40dY7ZVmmujOaTWlCC-geJsuIPN1srRTO3vvKMnLbi0PR51Ze2Ou7GNkqCGyg9sdfue5HCG2-sUkLs-VRkVUQ8rEfH_pDV-9THFB56SH8KbKDkxoWGMm4"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Timeline Section -->
+<section class="py-stack-lg px-margin-mobile md:px-margin-desktop relative" id="timeline">
+<div class="max-w-4xl mx-auto">
+<h2 class="text-center font-headline-lg text-white mb-16 glow-text">Evolution of Style</h2>
+<div class="relative pl-12 md:pl-0">
+<div class="absolute left-14 md:left-1/2 top-0 bottom-0 w-1 timeline-line -translate-x-1/2 rounded-full"></div>
+<div class="relative mb-24 reveal-on-scroll">
+<div class="md:flex items-center justify-between">
+<div class="md:w-[45%] mb-8 md:mb-0">
+<div class="glass-card p-8 rounded-2xl md:text-right">
+<span class="font-mono-data text-primary-container">2023 - Present</span>
+<h3 class="font-headline-md text-white mt-2">PC Mastery</h3>
+<p class="text-on-surface-variant mt-4">Transitioned to DaVinci Resolve and Adobe Premiere for complex commercial projects and high-fidelity 3D motion graphics.</p>
+</div>
+</div>
+<div class="absolute left-0 md:left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-primary-container shadow-[0_0_20px_rgba(0,217,255,1)] border-4 border-background z-20"></div>
+<div class="md:w-[45%]"></div>
+</div>
+</div>
+<div class="relative reveal-on-scroll">
+<div class="md:flex items-center justify-between">
+<div class="md:w-[45%]"></div>
+<div class="absolute left-0 md:left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-secondary shadow-[0_0_20px_rgba(210,187,255,1)] border-4 border-background z-20"></div>
+<div class="md:w-[45%] mt-8 md:mt-0">
+<div class="glass-card p-8 rounded-2xl">
+<span class="font-mono-data text-secondary">2020 - 2023</span>
+<h3 class="font-headline-md text-white mt-2">Mobile Pioneer</h3>
+<p class="text-on-surface-variant mt-4">Built a portfolio of 150+ high-engagement viral reels using CapCut, focusing on pacing, trend-jacking, and dynamic transitions.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Software & Tools -->
+<section class="py-stack-lg px-margin-mobile md:px-margin-desktop bg-surface-container-low" id="tools">
+<div class="max-w-container-max mx-auto">
+<div class="flex flex-col md:flex-row justify-between items-end mb-12">
+<div>
+<h2 class="font-label-caps text-label-caps text-secondary uppercase mb-2">The Engine Room</h2>
+<h3 class="font-headline-lg text-white">Software Arsenal</h3>
+</div>
+<p class="text-on-surface-variant font-body-md max-w-sm">Utilizing industry-standard tools to deliver pixel-perfect results every time.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="glass-card p-10 rounded-3xl group reveal-on-scroll">
+<div class="flex justify-between items-start mb-8">
+<div class="p-4 bg-primary-container/10 rounded-2xl">
+<span class="material-symbols-outlined text-4xl text-primary-container">video_settings</span>
+</div>
+<span class="font-mono-data text-on-surface-variant">95% Proficiency</span>
+</div>
+<h4 class="font-headline-md text-white mb-4">DaVinci Resolve</h4>
+<p class="text-on-surface-variant mb-6">Expertise in nodes-based color grading, Fairlight sound design, and Fusion visual effects for cinematic productions.</p>
+<div class="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+<div class="h-full bg-primary-container w-[95%] shadow-[0_0_10px_rgba(0,217,255,0.5)]"></div>
+</div>
+</div>
+<div class="glass-card p-10 rounded-3xl group reveal-on-scroll">
+<div class="flex justify-between items-start mb-8">
+<div class="p-4 bg-secondary/10 rounded-2xl">
+<span class="material-symbols-outlined text-4xl text-secondary">movie_edit</span>
+</div>
+<span class="font-mono-data text-on-surface-variant">98% Proficiency</span>
+</div>
+<h4 class="font-headline-md text-white mb-4">CapCut Desktop</h4>
+<p class="text-on-surface-variant mb-6">Specialized in rapid turnaround short-form content, viral hook design, and trend-aligned motion graphics.</p>
+<div class="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-[98%] shadow-[0_0_10px_rgba(210,187,255,0.5)]"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Portfolio Section -->
+<section class="py-stack-lg px-margin-mobile md:px-margin-desktop" id="portfolio">
+<div class="max-w-container-max mx-auto">
+<div class="text-center mb-16">
+<h2 class="font-headline-lg text-white mb-4">Featured Work</h2>
+<div class="flex flex-wrap justify-center gap-4">
+<button class="px-6 py-2 rounded-full bg-primary-container text-on-primary-container font-bold text-sm">All Projects</button>
+<button class="px-6 py-2 rounded-full glass-card text-white text-sm hover:border-primary-container transition-all">Reels</button>
+<button class="px-6 py-2 rounded-full glass-card text-white text-sm hover:border-primary-container transition-all">Cinematic</button>
+<button class="px-6 py-2 rounded-full glass-card text-white text-sm hover:border-primary-container transition-all">Commercials</button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Project 1 -->
+<div class="group relative overflow-hidden rounded-3xl aspect-[4/5] glass-card border-white/5 reveal-on-scroll">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A dynamic action shot from a high-energy sport commercial, featuring a runner in motion against a dark urban backdrop illuminated by vibrant streaks of blue and violet light trails. The frame captures high-speed motion blur and cinematic lens flares, reflecting expert editing and visual effects work. The mood is intense, fast-paced, and modern, showcasing top-tier post-production skills." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBg9Y2Tx98_FROwFoehLw_r8SF7R05HG4JhSR5wYAmn6noVoJEuUuVT_mLemRG1Rh_QGUpdpdPlK_h4dHSsPIG7d3Elcm612GPJQTtf8QYnrIGcx4KTKaUKN3uHfWtfZG2uDhzymLIp5gaCvbmZYRnzJvCl1n7Y-S6J-BrTj8iukLYqfa_ecG-gjViB69lQCj2fTJ648Cinx7AWyVA4-JEsFTEG4QnBPREg3jhuQVON9-NVP70t6M0RGIhqxdjUVaDvd7p8qyzYyD4"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-60"></div>
+<div class="absolute bottom-0 left-0 w-full p-8 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+<div class="flex gap-2 mb-3">
+<span class="font-mono-data text-[10px] bg-primary-container/20 text-primary-container px-2 py-1 rounded">4K</span>
+<span class="font-mono-data text-[10px] bg-secondary/20 text-secondary px-2 py-1 rounded">VFX</span>
+</div>
+<h4 class="font-headline-md text-white text-xl">Urban Speedster</h4>
+<p class="text-on-surface-variant text-sm mt-2 opacity-0 group-hover:opacity-100 transition-opacity">Dynamic commercial edit for Nike Global campaign concept.</p>
+</div>
+</div>
+<!-- Project 2 -->
+<div class="group relative overflow-hidden rounded-3xl aspect-[4/5] glass-card border-white/5 reveal-on-scroll">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A serene and breathtaking landscape shot of mountains at dawn, treated with professional cinematic color grading that emphasizes deep teals and warm golden highlights. The composition is artistic and peaceful, with a slight misty haze over the valley. This visual demonstrates expert-level color correction and storytelling through environment editing. The mood is ethereal, high-end, and cinematic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBAv1jeG4l5Hzozv8a9RcKuyMVRlQzH0ctWlBuN3Xerac_-IGobM0OQYWfLicdmXjeauqI6nNbTbEW5cqJxWk7I0LxRelfQu7mWkuV_5cM0SK9ZQIp8DpOr5IBJo5z_l9YtnMqch1inCkLa-e4GFq1AOu52Uj3bPYtqBukKJfARohbxMZfl6c8YYoVLKylLhzqDx237Vp4vqQ5LKugCrEuh1g-1OToJxwY8RzAHM45Cg9GTtGTolzS-wLyjdcUmOnoRygxsnXcAAYU"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-60"></div>
+<div class="absolute bottom-0 left-0 w-full p-8 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+<div class="flex gap-2 mb-3">
+<span class="font-mono-data text-[10px] bg-primary-container/20 text-primary-container px-2 py-1 rounded">LOG</span>
+<span class="font-mono-data text-[10px] bg-secondary/20 text-secondary px-2 py-1 rounded">Grading</span>
+</div>
+<h4 class="font-headline-md text-white text-xl">Dusk Horizon</h4>
+<p class="text-on-surface-variant text-sm mt-2 opacity-0 group-hover:opacity-100 transition-opacity">Professional color grading study on Blackmagic RAW footage.</p>
+</div>
+</div>
+<!-- Project 3 -->
+<div class="group relative overflow-hidden rounded-3xl aspect-[4/5] glass-card border-white/5 reveal-on-scroll">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A futuristic tech review setup with a glowing laptop and high-tech peripherals, shot with a shallow depth of field. The image is enhanced with floating digital UI elements and holographic overlays, showcasing advanced motion graphics and overlay editing. The color palette is strictly cool-toned with electric blue accents. The mood is sleek, sophisticated, and innovative, representing cutting-edge tech content production." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUYWsbzNzicNUwJQohShzWnQeBi-yZGYQutkQJ6arOhbfx4uxBCQLhwtJuBhIu3BooTppJGUc92xIszybGIo0iJm00B-s3sTSHkaJ4Bmlh1cd85LXHfoZXLkVRszPcAYJ_FFA__c1yOYCzK0CSOCGFnbBBXH1eIjvLBAPNyNVlFzDyqG62X23MQVOK8fXUH-nhoSATu31eBJrWVizwMvwOxxE1-Cn1RzdAScUjEAdsSDhfu5u39d7L-y7zX-72W4tVjfQXwiSW9WM"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-60"></div>
+<div class="absolute bottom-0 left-0 w-full p-8 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+<div class="flex gap-2 mb-3">
+<span class="font-mono-data text-[10px] bg-primary-container/20 text-primary-container px-2 py-1 rounded">Motion</span>
+<span class="font-mono-data text-[10px] bg-secondary/20 text-secondary px-2 py-1 rounded">Tech</span>
+</div>
+<h4 class="font-headline-md text-white text-xl">Future Gear</h4>
+<p class="text-on-surface-variant text-sm mt-2 opacity-0 group-hover:opacity-100 transition-opacity">Tech showcase reel featuring 3D tracked UI elements.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Stats Section -->
+<section class="py-stack-lg bg-surface-container-highest relative overflow-hidden" id="stats">
+<div class="max-w-container-max mx-auto px-margin-mobile">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+<div class="text-center reveal-on-scroll">
+<h5 class="font-display-lg text-primary-container glow-text mb-2">4+</h5>
+<p class="font-label-caps text-on-surface-variant">Years Exp.</p>
+</div>
+<div class="text-center reveal-on-scroll">
+<h5 class="font-display-lg text-secondary glow-text mb-2">50+</h5>
+<p class="font-label-caps text-on-surface-variant">Projects</p>
+</div>
+<div class="text-center reveal-on-scroll">
+<h5 class="font-display-lg text-primary-container glow-text mb-2">100%</h5>
+<p class="font-label-caps text-on-surface-variant">Success</p>
+</div>
+<div class="text-center reveal-on-scroll">
+<h5 class="font-display-lg text-secondary glow-text mb-2">200+</h5>
+<p class="font-label-caps text-on-surface-variant">Videos</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Skills Bento Grid -->
+<section class="py-stack-lg px-margin-mobile md:px-margin-desktop" id="skills">
+<div class="max-w-container-max mx-auto">
+<h2 class="font-headline-lg text-white mb-12 text-center">Core Disciplines</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="glass-card p-8 rounded-[2rem] reveal-on-scroll">
+<span class="material-symbols-outlined text-primary-container text-4xl mb-4">video_library</span>
+<h4 class="font-headline-md text-white text-lg mb-2">Video Editing</h4>
+<p class="text-on-surface-variant text-sm">Rhythmic cutting and narrative pacing optimized for any format.</p>
+</div>
+<div class="glass-card p-8 rounded-[2rem] reveal-on-scroll">
+<span class="material-symbols-outlined text-secondary text-4xl mb-4">palette</span>
+<h4 class="font-headline-md text-white text-lg mb-2">Color Grading</h4>
+<p class="text-on-surface-variant text-sm">Creating atmospheric moods through advanced LUTs and manual grading.</p>
+</div>
+<div class="glass-card p-8 rounded-[2rem] reveal-on-scroll">
+<span class="material-symbols-outlined text-primary-container text-4xl mb-4">auto_awesome</span>
+<h4 class="font-headline-md text-white text-lg mb-2">Motion Graphics</h4>
+<p class="text-on-surface-variant text-sm">Dynamic typography and element animation for brand impact.</p>
+</div>
+<div class="glass-card p-8 rounded-[2rem] reveal-on-scroll">
+<span class="material-symbols-outlined text-secondary text-4xl mb-4">auto_stories</span>
+<h4 class="font-headline-md text-white text-lg mb-2">Storytelling</h4>
+<p class="text-on-surface-variant text-sm">Constructing emotional arcs that resonate with your specific audience.</p>
+</div>
+<div class="glass-card p-8 rounded-[2rem] reveal-on-scroll">
+<span class="material-symbols-outlined text-primary-container text-4xl mb-4">graphic_eq</span>
+<h4 class="font-headline-md text-white text-lg mb-2">Sound Design</h4>
+<p class="text-on-surface-variant text-sm">Immersive audio landscapes and precise sound effect synchronization.</p>
+</div>
+<div class="glass-card p-8 rounded-[2rem] reveal-on-scroll">
+<span class="material-symbols-outlined text-secondary text-4xl mb-4">trending_up</span>
+<h4 class="font-headline-md text-white text-lg mb-2">Optimization</h4>
+<p class="text-on-surface-variant text-sm">Maximizing retention and engagement metrics through smart editing.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Contact Section -->
+<section class="py-stack-lg px-margin-mobile md:px-margin-desktop bg-surface-container-low" id="contact">
+<div class="max-w-4xl mx-auto">
+<div class="glass-card p-stack-md md:p-stack-lg rounded-[2.5rem] border-white/10 reveal-on-scroll">
+<div class="text-center mb-10">
+<h2 class="font-headline-lg text-white">Start a Project</h2>
+<p class="text-on-surface-variant mt-2">Ready to transform your vision into a cinematic reality?</p>
+</div>
+<form class="space-y-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div>
+<label class="font-label-caps text-label-caps text-on-surface-variant block mb-2">Name</label>
+<input class="w-full bg-background/50 border border-white/10 rounded-xl px-6 py-4 text-white focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-all" placeholder="Alex J." type="text"/>
+</div>
+<div>
+<label class="font-label-caps text-label-caps text-on-surface-variant block mb-2">Email</label>
+<input class="w-full bg-background/50 border border-white/10 rounded-xl px-6 py-4 text-white focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-all" placeholder="hello@neonstudio.com" type="email"/>
+</div>
+</div>
+<div>
+<label class="font-label-caps text-label-caps text-on-surface-variant block mb-2">Message</label>
+<textarea class="w-full bg-background/50 border border-white/10 rounded-xl px-6 py-4 text-white focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-all" placeholder="Tell me about your project vision..." rows="5"></textarea>
+</div>
+<button class="w-full bg-primary-container text-on-primary-container py-5 rounded-xl font-bold font-display-lg-mobile text-body-md hover:scale-[1.02] active:scale-95 transition-all shadow-[0_10px_20px_rgba(0,217,255,0.2)]" type="submit">Send Transmission</button>
+</form>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="relative bottom-0 w-full bg-background/95 backdrop-blur-md border-t border-surface-variant flex flex-col md:flex-row justify-between items-center px-margin-desktop py-stack-md">
+<div class="font-label-caps text-primary text-label-caps mb-6 md:mb-0">NEON_STUDIO</div>
+<div class="font-mono-data text-mono-data text-outline mb-6 md:mb-0">
+            © 2024 NEON_STUDIO. BUILT FOR THE FUTURE.
+        </div>
+<div class="flex gap-stack-md">
+<a class="text-outline hover:text-primary-container transition-colors font-mono-data text-mono-data group flex items-center gap-2" href="#">
+                Instagram
+            </a>
+<a class="text-outline hover:text-primary-container transition-colors font-mono-data text-mono-data group flex items-center gap-2" href="#">
+                ArtStation
+            </a>
+<a class="text-outline hover:text-primary-container transition-colors font-mono-data text-mono-data group flex items-center gap-2" href="#">
+                Behance
+            </a>
+<a class="text-outline hover:text-primary-container transition-colors font-mono-data text-mono-data group flex items-center gap-2" href="#">
+                LinkedIn
+            </a>
+</div>
+</footer>
+<script>
+        // Intersection Observer for reveal animations
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal-on-scroll').forEach((el) => observer.observe(el));
+
+        // Smooth scroll implementation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Hover effects for project cards
+        const cards = document.querySelectorAll('.glass-card');
+        cards.forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+    </script>
+<style>
+        @keyframes scroll {
+            0% { transform: translateY(-100%); opacity: 0; }
+            50% { transform: translateY(0%); opacity: 1; }
+            100% { transform: translateY(100%); opacity: 0; }
+        }
+    </style>
+</body></html>
