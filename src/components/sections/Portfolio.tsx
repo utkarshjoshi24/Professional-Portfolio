@@ -35,6 +35,11 @@ function VideoCard({
     return () => observer.disconnect();
   }, []);
 
+  const handleCardClick = () => {
+    const url = `/play?video=${encodeURIComponent(project.video)}&title=${encodeURIComponent(project.title)}`;
+    window.open(url, "_blank");
+  };
+
   return (
     <motion.div
       ref={cardRef}
@@ -43,7 +48,16 @@ function VideoCard({
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.9 }}
       transition={{ duration: 0.6, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
-      className="group relative overflow-hidden rounded-2xl aspect-[4/5] lg:aspect-[16/10] glass border-white/5 cursor-pointer"
+      className="group relative overflow-hidden rounded-2xl aspect-[4/5] lg:aspect-[16/10] glass border-white/5 cursor-pointer focus:outline-none focus:ring-2 focus:ring-neon-blue/50"
+      onClick={handleCardClick}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          handleCardClick();
+        }
+      }}
+      role="button"
+      tabIndex={0}
     >
       {/* Video always visible */}
       <div className="absolute inset-0 bg-surface-high">
