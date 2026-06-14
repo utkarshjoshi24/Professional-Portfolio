@@ -4,10 +4,9 @@ import { useEffect, useRef, useState } from "react";
 
 const VIDEO_PLAYLIST = [
   "/videos/Netflix Ad.mov",
-  "/videos/Final P-1.mov",
-  "/videos/Final P-2.mov",
+  "/videos/Harry Potter.mov",
+  "/videos/Thomas Shelby.mov",
   "/videos/Parallax Effect.mov",
-  "/videos/Saas High Quality.mov",
   "/videos/Saas-2.mov",
 ];
 

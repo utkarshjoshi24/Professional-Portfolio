@@ -76,18 +76,18 @@ export const PORTFOLIO_CATEGORIES = [
 export const PROJECTS = [
   {
     id: 1,
-    title: "Final Project 1",
+    title: "Harry Potter",
     category: "Cinematic Edits",
-    tags: ["4K", "Cinematic"],
-    video: "/videos/Final P-1.mov",
+    tags: ["Cinematic", "VFX"],
+    video: "/videos/Harry Potter.mov",
     featured: true,
   },
   {
     id: 2,
-    title: "Final Project 2",
-    category: "Cinematic Edits",
-    tags: ["4K", "VFX"],
-    video: "/videos/Final P-2.mov",
+    title: "Thomas Shelby",
+    category: "Reels",
+    tags: ["Cinematic", "Color Grading"],
+    video: "/videos/Thomas Shelby.mov",
     featured: false,
   },
   {
@@ -108,14 +108,6 @@ export const PROJECTS = [
   },
   {
     id: 5,
-    title: "SaaS Promo",
-    category: "Social Media Ads",
-    tags: ["SaaS", "Commercial"],
-    video: "/videos/Saas High Quality.mov",
-    featured: false,
-  },
-  {
-    id: 6,
     title: "SaaS Short",
     category: "Short Form Content",
     tags: ["Short", "SaaS"],
